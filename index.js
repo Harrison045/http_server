@@ -1,25 +1,32 @@
 const express = require("express");
 
-const handleAllRequest = (req, res) => {
-  const url = req.url;
-  res.setHeader("content-type", "text/html");
-  if (url == "/users") {
-    res.write("<h1>Welcome to User Page</h1>");
-  } else if (url == "/signup") {
-    res.write("<h2>Welcome to SignUp Page </h2>");
-  } else if (url == "/profile") {
-    res.write("<h1>Profiles</h1>");
-  } else {
-    res.write("Page Not Found");
-  }
-  res.end();
+const handleAllRequest = (request, response) => {
+  const url = request.url;
+  response.setHeader("content-type", "text/html");
+
+  response.write("Page unavailable");
+
+  response.end();
 };
 
-const handleHomeRequest = (respond, repuest) => {
-  respond.send("<h1>Welcome to Home Page </h1>");
+const handleHomeRequest = (req, res) => {
+  res.send("<h1>Welcome to home page</h1>");
 };
+
+const handleAboutRequest = (req, res) => {
+  res.send("<h1>Welcome to About page</h1>");
+};
+const handleContactRequest = (req, res) => {
+  res.send("<h1>Welcome to Contact page</h1>");
+};
+
 const server = express();
-server.use(handleAllRequest);
-server.use('/',handleHomeRequest)
+server.use("/contact", handleContactRequest);
+server.use("/about", handleAboutRequest);
+server.use("/", handleHomeRequest);
 
-server.listen(3000, "127.0.0.1", ()=>console.log("Server has started"));
+server.use(handleAllRequest);
+
+server.listen(4000, () => {
+  console.log("server started on port 4000");
+});

@@ -1,25 +1,24 @@
-const express = require("express");
+const express =require('express')
 
-const handleAllRequest = (req, res) => {
-  const url = req.url;
-  res.setHeader("content-type", "text/html");
-  if (url == "/users") {
-    res.write("<h1>Welcome to User Page</h1>");
-  } else if (url == "/signup") {
-    res.write("<h2>Welcome to SignUp Page </h2>");
-  } else if (url == "/profile") {
-    res.write("<h1>Profiles</h1>");
-  } else {
-    res.write("Page Not Found");
-  }
-  res.end();
-};
+const server=express()
 
-const handleHomeRequest = (respond, repuest) => {
-  respond.send("<h1>Welcome to Home Page </h1>");
-};
-const server = express();
-server.use(handleAllRequest);
-server.use('/',handleHomeRequest)
+const handleAllTypesOfRequest=(req,res)=>{
+  res.send('welcome to home page')
+}
 
-server.listen(3000, "127.0.0.1", ()=>console.log("Server has started"));
+//middleware function
+
+const middleWareFunction =(req,res,next)=>{
+  console.log('hello this is middleware');
+  next()
+}
+
+server.use(middleWareFunction)
+
+server.get('/contact',(req,res)=>res.send('this is contact used with get'))
+server.post('/login',(req,res)=>res.send('this is login used with post'))
+server.put('/profile',(req,res)=>res.send('this is profile used with delete'))
+server.delete('/services',(req,res)=>res.send('this is services used with delete'))
+server.use('/',handleAllTypesOfRequest)
+
+server.listen(4000,()=>console.log('server has started'))

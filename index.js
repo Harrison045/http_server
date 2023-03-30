@@ -1,31 +1,19 @@
 const express = require("express");
 
-const handleAllRequest = (request, response) => {
-  const url = request.url;
-  response.setHeader("content-type", "text/html");
-
-  response.write("Page unavailable");
-
-  response.end();
-};
-
-const handleHomeRequest = (req, res) => {
-  res.send("<h1>Welcome to home page</h1>");
-};
-
-const handleAboutRequest = (req, res) => {
-  res.send("<h1>Welcome to About page</h1>");
-};
-const handleContactRequest = (req, res) => {
-  res.send("<h1>Welcome to Contact page</h1>");
-};
-
 const server = express();
-server.use("/contact", handleContactRequest);
-server.use("/about", handleAboutRequest);
-server.use("/", handleHomeRequest);
 
-server.use(handleAllRequest);
+const handleAllRequest=(req, res)=>{
+  res.send("Respond Recieved")
+}
+
+const handleLoginPutRequestType=(req,res)=>{
+  res.send('Put respond is out')
+}
+
+server.get('/', handleAllRequest)
+server.put('/contact', handleLoginPutRequestType)
+server.post('/profile',(req,res)=>res.send('Welcome Home Dude'))
+server.delete('/login',(req,res)=>res.send('Welcome Home Delete'))
 
 server.listen(4000, () => {
   console.log("server started on port 4000");

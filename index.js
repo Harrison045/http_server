@@ -25,7 +25,7 @@ const loginRouteSpecificMiddleware=(req,res,next)=>{
 // server.use(middleWareFunction)
 
 //routes
-server.get('/contact',(req,res)=>res.send('this is contact used with get'))
+server.get('/contact',(req,res)=>res.send('this is contact used  with get'))
 server.post('/login',loginRouteSpecificMiddleware, handleLogin)
 server.put('/profile',(req,res)=>res.send('this is profile used with delete'))
 server.delete('/services',(req,res)=>res.send('this is services used with delete'))

@@ -1,20 +1,21 @@
-const express = require("express");
+const express = require("express")
+const path = require("path")
+const bodyParser = require("body-parser")
+const server = express()
 
-const server = express();
 
-const handleAllRequest=(req, res)=>{
-  res.send("Respond Recieved")
+const loginRequestPath=(req,res)=>{
+  console.log(req.body)
+  res.send('Done')
 }
 
-const handleLoginPutRequestType=(req,res)=>{
-  res.send('Put respond is out')
-}
+//middle Ware
 
-server.get('/', handleAllRequest)
-server.put('/contact', handleLoginPutRequestType)
-server.post('/profile',(req,res)=>res.send('Welcome Home Dude'))
-server.delete('/login',(req,res)=>res.send('Welcome Home Delete'))
+server.use(express.static(path.join(__dirname, 'public')))
+server.use(bodyParser.urlencoded({extended:false}))
 
-server.listen(4000, () => {
-  console.log("server started on port 4000");
-});
+//route
+server.use('/login', loginRequestPath)
+
+
+server.listen(4000,()=>console.log('server has started'))
